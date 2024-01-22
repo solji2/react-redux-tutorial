@@ -70,7 +70,7 @@ function todos(state = initialState, action) {
     case REMOVE:
       return {
         ...state,
-        todos: state.todos.filter((todo) => todos.id !== action.id),
+        todos: state.todos.filter((todo) => todo.id !== action.id),
       };
     default:
       return state;
