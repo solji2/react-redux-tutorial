@@ -1,5 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
-
 //action type 정의   문자열 내용 -> 모듈이름/액션이름
 const INCREASE = "counter/INCREASE";
 const DECREASE = "counter/DECREASE";
@@ -15,8 +13,9 @@ const initialState = {
 
 //reducer 함수 정의
 const counter = (state = initialState, action) => {
-  switch ((action, type)) {
+  switch (action.type) {
     case INCREASE:
+      debugger;
       return {
         number: state.number + 1,
       };
