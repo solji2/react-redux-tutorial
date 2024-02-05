@@ -1,24 +1,30 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Todos from "../components/Todos";
 import { changeinput, insert, toggle, remove } from "../modules/todos"; //todos모듈에서 작성했던 액션함수와 상태안에 있던 값을 컴포넌트의 props로 전달받음
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
-const TodosContainer = ({
-  input,
-  todos,
-  changeinput,
-  insert,
-  toggle,
-  remove,
-}) => {
+const TodosContainer = () => {
+  const dispatch = useDispatch();
+  const { input, todos } = useSelector(({ todos }) => ({
+    input: todos.input,
+    todos: todos.todos,
+  }));
+  const onChangeInput = useCallback(
+    (input) => dispatch(changeinput(input)),
+    [dispatch]
+  );
+  const onInsert = useCallback((text) => dispatch(insert(text)), [dispatch]);
+  const onToggle = useCallback((id) => dispatch(toggle(id)), [dispatch]);
+  const onRemove = useCallback((id) => dispatch(remove(id)), [dispatch]);
+
   return (
     <Todos
       input={input}
       todos={todos}
-      onChangeInput={changeinput}
-      onInsert={insert}
-      onToggle={toggle}
-      onRemove={remove}
+      onChangeInput={onChangeInput}
+      onInsert={onInsert}
+      onToggle={onToggle}
+      onRemove={onRemove}
     />
   );
 };
